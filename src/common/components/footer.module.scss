@@ -1,0 +1,30 @@
+@import '@styles/variables.scss';
+
+$footer-text-gray: #70757a;
+
+.google_footer {
+    box-sizing: border-box;
+    min-height: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: $footer-text-gray;
+    font-size: 12px;
+    background-color: $google-gray;
+    font-weight: 500;
+    a {
+        text-decoration: none;
+        color: #000;
+        opacity: 0.75;
+
+        &:hover {
+            text-decoration-line: underline;
+        }
+    }
+
+    @media (min-width: 768px) {
+        font-size: 14px;
+    }
+}

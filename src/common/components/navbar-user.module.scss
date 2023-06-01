@@ -1,0 +1,21 @@
+$navbar-menu-icon-color: #5f6368;
+
+.navbar_container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav_icon {
+    color: $navbar-menu-icon-color;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.user_image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+}

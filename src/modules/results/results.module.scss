@@ -1,0 +1,13 @@
+@import '@styles/variables.scss';
+
+.main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0 0 0;
+    // Estilos para el componente 'main' dentro de 'layoutContainer'
+
+    @media (min-width: 768px) {
+        padding: 198px 0 0 0;
+    }
+}

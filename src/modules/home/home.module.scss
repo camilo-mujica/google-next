@@ -1,0 +1,65 @@
+@import '@styles/variables.scss';
+
+.main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0 0 0;
+    // Estilos para el componente 'main' dentro de 'layoutContainer'
+
+    @media (min-width: 768px) {
+        padding: 198px 0 0 0;
+    }
+
+    .searchbar_container {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        align-items: center;
+    }
+
+    .google_logo {
+        width: 200px;
+
+        @media (min-width: 768px) {
+            width: 272px;
+            height: 92px;
+        }
+    }
+
+    .button_container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        width: 100%;
+
+        //    google search button style
+        .search_button {
+            border: 1px solid transparent;
+            box-sizing: border-box;
+            background-color: #f2f2f2;
+            padding: 12px 35px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #474b50;
+            letter-spacing: 1px;
+            border: 1px solid transparent; /* Borde transparente */
+
+            &:disabled {
+                background-color: #eaeaea;
+                color: #999999;
+                cursor: not-allowed;
+                opacity: 0.7;
+            }
+
+            :not(:disabled):hover {
+                border-color: #dadce0; /* Cambio de color del borde al hacer hover */
+                box-shadow: 0 1px 1px 0 rgb(60 64 67 / 30%),
+                    0 1px 3px 1px rgb(60 64 67 / 15%);
+            }
+        }
+    }
+}
