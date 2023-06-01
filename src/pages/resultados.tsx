@@ -1,7 +1,12 @@
+import { ResultsScreen } from '@modules/results'
 import React from 'react'
 
 const ResultsPage = () => {
-  return <div>ResultsPage</div>
+    return (
+        <>
+            <ResultsScreen></ResultsScreen>
+        </>
+    )
 }
 
 export default ResultsPage
