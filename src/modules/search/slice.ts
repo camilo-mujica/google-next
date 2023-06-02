@@ -5,19 +5,41 @@ type searchState = {
     history: string[]
 }
 
-const initialState: searchState = { history: [] }
+const storedHistory =
+    typeof localStorage !== 'undefined'
+        ? localStorage.getItem('searchHistory')
+        : null
+const parsedHistory = storedHistory ? JSON.parse(storedHistory) : []
+
+const initialState: searchState = { history: parsedHistory }
 
 const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
         addToHistory(state, action: PayloadAction<string>) {
-            state.history = [action.payload, ...state.history]
+            const updatedHistory = [action.payload, ...state.history]
+
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem(
+                    'searchHistory',
+                    JSON.stringify(updatedHistory),
+                )
+            }
+
+            state.history = updatedHistory
+        },
+        clearHistory(state) {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.removeItem('searchHistory')
+            }
+
+            state.history = []
         },
     },
 })
 
-export const { addToHistory } = searchSlice.actions
+export const { addToHistory, clearHistory } = searchSlice.actions
 
 export const selectSearchHistory = (state: RootState) => {
     return state.search.history

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { addToHistory, selectSearchHistory } from './internals'
+import { addToHistory, clearHistory, selectSearchHistory } from './internals'
 
 // This hook is used to add a search term to the search history and retrieve the current search history.
 export const useSearchHistory = () => {
@@ -10,5 +10,9 @@ export const useSearchHistory = () => {
         dispatch(addToHistory(term))
     }
 
-    return { history, handleAddToHistory }
+    const handleClearHistory = () => {
+        dispatch(clearHistory())
+    }
+
+    return { history, handleAddToHistory, handleClearHistory }
 }

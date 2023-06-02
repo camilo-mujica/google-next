@@ -11,8 +11,6 @@ $google-gray-dark: #333333;
 
     &:hover {
         box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
-        // border-bottom-left-radius: 0;
-        // border-bottom-right-radius: 0;
     }
 
     @media (min-width: 465px) {
@@ -79,9 +77,73 @@ $google-gray-dark: #333333;
         position: absolute;
         top: 100%;
         background-color: white;
-        min-height: 40px;
+        min-height: 100px;
         width: 100%;
         border-radius: 0 0 30px 30px;
         box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+        padding: 15px 0;
+        z-index: 0;
+
+        > ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            > li {
+                padding: 10px 16px;
+                cursor: pointer;
+                display: flex;
+
+                &:hover {
+                    background-color: #f1f3f4;
+                }
+
+                .search_icon {
+                    color: #9aa0a6;
+                    font-size: 20px;
+                }
+
+                .search_text {
+                    color: black;
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-left: 10px;
+                    overflow-wrap: break-word;
+                    word-break: break-all;
+                }
+            }
+        }
+
+        .delete_history {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3px;
+            color: rgba(14, 15, 17, 0.7);
+
+            &:hover {
+                background-color: #f1f3f4;
+            }
+
+            .delete_icon {
+                color: #9aa0a6;
+                font-size: 16px;
+            }
+
+            .delete_text {
+                color: black;
+                font-size: 14px;
+                font-weight: 600;
+                margin-left: 10px;
+            }
+        }
     }
+}
+
+.show_search_history {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
 }

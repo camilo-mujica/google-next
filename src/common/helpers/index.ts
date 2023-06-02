@@ -91,3 +91,16 @@ export const generateArray = (length: number): number[] => {
 // Delays the execution of a function
 export const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms))
+
+// Truncates a string to a given length
+export function truncateString(
+    str: string,
+    maxLength: number,
+    omission = '...',
+): string {
+    if (str.length <= maxLength) {
+        return str
+    }
+
+    return str.slice(0, maxLength - omission.length) + omission
+}
