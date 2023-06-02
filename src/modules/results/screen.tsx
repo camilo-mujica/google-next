@@ -65,10 +65,11 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
             }
         } else {
             setDetail(null)
-            setResults([])
             setShowNoResults(false)
             router.push(`${ROUTES.results}`, undefined, { shallow: true })
         }
+
+        setDetail(null)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search, pageQuery])
