@@ -33,7 +33,7 @@ const HomeScreen = () => {
                     ></img>
                     <Searchbar
                         search={search}
-                        handleSearch={handleSearch}
+                        setSearch={handleSearch}
                         handleSubmit={handleSubmit}
                         handleReset={() => setSearch('')}
                     ></Searchbar>

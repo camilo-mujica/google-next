@@ -29,7 +29,7 @@ const ResultsNavbar = ({ handleSearchQuery, initialSearch = '' }: Props) => {
         }
     }, [])
 
-    const handleSearch = () => {
+    const handleSubmit = () => {
         handleSearchQuery(search)
     }
 
@@ -51,8 +51,8 @@ const ResultsNavbar = ({ handleSearchQuery, initialSearch = '' }: Props) => {
                     </Link>
                     <Searchbar
                         search={search}
-                        handleSearch={setSearch}
-                        handleSubmit={handleSearch}
+                        setSearch={setSearch}
+                        handleSubmit={handleSubmit}
                         handleReset={handleReset}
                         fixedShadow
                         allowShowHistory

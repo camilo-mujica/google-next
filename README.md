@@ -78,6 +78,10 @@ Este módulo contiene el screen de la pagina inicial, sus estilos, componentes, 
 
 Este módulo contiene toda la lógica para la consulta resultados, paginación, componentes, visualización, etc.
 
+### _search_
+
+Exporta el componente de búsqueda y estado del historial de búsqueda.
+
 ## Protocolo de despliegue
 
 Este proyecto puede ser desplegado en cualquier proveedor de servicios como Vercel, Netlify, AWS Amplify, entre otros. Sin embargo, se recomienda su despliegue en Vercel o Netlify ya que son las plataformas mejor optimizadas para Next.js. Este protocolo está orientado al despliegue en proveedores de servicio como Vercel o Netlify.

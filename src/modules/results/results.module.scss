@@ -63,6 +63,14 @@
                     padding: 40px 0 30px 150px;
                 }
             }
+
+            .no_results_image {
+                width: 300px;
+
+                @media screen and (min-width: 1024px) {
+                    width: 500px;
+                }
+            }
         }
 
         .result_details_container {

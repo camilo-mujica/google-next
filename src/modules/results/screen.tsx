@@ -1,5 +1,6 @@
 import { Footer } from '@components'
 import { emptyPaginatedData, ROUTES } from '@constants'
+import NoResultsImage from '@images/no_results.svg'
 import { PrimaryLayout } from '@layouts'
 import { AnimalSearch, Links, Metadata } from '@types'
 import { useRouter } from 'next/router'
@@ -25,10 +26,13 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
     const [pageQuery, setPageQuery] = useState(page)
     const [results, setResults] = useState<AnimalSearch[]>([])
     const [detail, setDetail] = useState<AnimalSearch | null>(null)
-    const { data, isLoading } = useGetResultsQuery({
-        search,
-        page: pageQuery || 1,
-    })
+    const { data, isLoading, isFetching } = useGetResultsQuery(
+        {
+            search,
+            page: pageQuery || 1,
+        },
+        { refetchOnMountOrArgChange: true },
+    )
     const [showNoResults, setShowNoResults] = useState(false)
 
     const [metadata, setMetadata] = useState<Metadata>(emptyPaginatedData.meta)
@@ -93,7 +97,7 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                             {search && (
                                 <ResultsList
                                     results={results}
-                                    loading={isLoading}
+                                    loading={isLoading || isFetching}
                                     handleDetail={setDetail}
                                 />
                             )}
@@ -112,6 +116,12 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                                             cat, snake, dog, bird.
                                         </span>
                                     </p>
+
+                                    <img
+                                        src={NoResultsImage.src}
+                                        alt="Sin resultados"
+                                        className={styles.no_results_image}
+                                    />
                                 </>
                             )}
 

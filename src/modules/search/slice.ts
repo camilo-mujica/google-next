@@ -18,7 +18,10 @@ const searchSlice = createSlice({
     initialState,
     reducers: {
         addToHistory(state, action: PayloadAction<string>) {
-            const updatedHistory = [action.payload, ...state.history]
+            const updatedHistory = [
+                action.payload,
+                ...state.history.filter((item) => item !== action.payload),
+            ]
 
             if (typeof localStorage !== 'undefined') {
                 localStorage.setItem(

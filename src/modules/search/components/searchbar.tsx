@@ -1,13 +1,14 @@
 import { truncateString } from '@helpers'
 import { useOutsideClick } from '@hooks'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoMdClose, IoMdSearch, IoMdTrash } from 'react-icons/io'
+import { LuClock4 } from 'react-icons/lu'
 import { useSearchHistory } from '../internals'
 import styles from './searchbar.module.scss'
 
 interface Props {
     search: string
-    handleSearch: (search: string) => void
+    setSearch: (search: string) => void
     handleSubmit: () => void
     handleReset: () => void
     fixedShadow?: boolean
@@ -16,7 +17,7 @@ interface Props {
 
 const Searchbar = ({
     search,
-    handleSearch,
+    setSearch,
     handleSubmit,
     handleReset,
     fixedShadow,
@@ -26,6 +27,16 @@ const Searchbar = ({
         useSearchHistory()
     const [showHistory, setShowHistory] = useState(false)
     const ref = useOutsideClick<HTMLDivElement>(() => setShowHistory(false))
+    const [searchHistoryItem, setSearchHistoryItem] = useState<boolean>(false)
+
+    useEffect(() => {
+        if (searchHistoryItem) {
+            handleAddToHistory(search)
+            handleSubmit()
+            setSearchHistoryItem(false)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchHistoryItem])
 
     return (
         <section
@@ -52,7 +63,7 @@ const Searchbar = ({
                 <input
                     type="text"
                     value={search}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)}
                     className={styles.input}
                     onFocus={() => {
                         if (history.length > 0 && allowShowHistory) {
@@ -77,25 +88,28 @@ const Searchbar = ({
             {showHistory && (
                 <div className={styles.search_history}>
                     <ul>
-                        {history.slice(0, 5).map((item, index) => {
-                            return (
-                                <li
-                                    key={index}
-                                    onClick={() => {
-                                        handleSearch(item)
-                                        handleSubmit()
-                                        setShowHistory(false)
-                                    }}
-                                >
-                                    <span className={styles.search_icon}>
-                                        <IoMdSearch></IoMdSearch>
-                                    </span>
-                                    <span className={styles.search_text}>
-                                        {truncateString(item, 50)}
-                                    </span>
-                                </li>
-                            )
-                        })}
+                        {history
+                            .slice(0, 6)
+                            .filter((item) => item !== search)
+                            .map((item, index) => {
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={() => {
+                                            setSearch(item)
+                                            setShowHistory(false)
+                                            setSearchHistoryItem(true)
+                                        }}
+                                    >
+                                        <span className={styles.search_icon}>
+                                            <LuClock4 />
+                                        </span>
+                                        <span className={styles.search_text}>
+                                            {truncateString(item, 50)}
+                                        </span>
+                                    </li>
+                                )
+                            })}
                     </ul>
 
                     <div
