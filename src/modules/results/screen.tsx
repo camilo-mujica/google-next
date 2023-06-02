@@ -1,6 +1,5 @@
 import { Footer } from '@components'
 import { emptyPaginatedData, ROUTES } from '@constants'
-import { usePagination } from '@hooks'
 import { PrimaryLayout } from '@layouts'
 import { AnimalSearch, Links, Metadata } from '@types'
 import { useRouter } from 'next/router'
@@ -25,7 +24,7 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
     const [search, setSearch] = useState(initialSearch)
     const [results, setResults] = useState<AnimalSearch[]>([])
     const [detail, setDetail] = useState<AnimalSearch | null>(null)
-    const { data, isLoading } = useGetResultsQuery({ search, page })
+    const { data, isLoading } = useGetResultsQuery({ search, page: page || 1 })
     const [showNoResults, setShowNoResults] = useState(false)
 
     const [metadata, setMetadata] = useState<Metadata>(emptyPaginatedData.meta)
@@ -46,23 +45,24 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
     }, [data])
 
     useEffect(() => {
-        if (page && page > 1) {
-            router.push(
-                `${ROUTES.results}?q=${search}&page=${page}`,
-                undefined,
-                {
+        if (search) {
+            if (page && page > 1) {
+                router.push(
+                    `${ROUTES.results}?q=${search}&page=${page}`,
+                    undefined,
+                    {
+                        shallow: true,
+                    },
+                )
+            } else {
+                router.push(`${ROUTES.results}?q=${search}`, undefined, {
                     shallow: true,
-                },
-            )
+                })
+            }
         } else {
-            router.push(`${ROUTES.results}?q=${search}`, undefined, {
-                shallow: true,
-            })
-        }
-
-        if (!search) {
             setResults([])
             setShowNoResults(false)
+            router.push(`${ROUTES.results}`, undefined, { shallow: true })
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,15 +112,17 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                             )}
                         </section>
 
-                        <section
-                            className={styles.results_pagination_container}
-                        >
-                            <ResultsPagination
-                                meta={metadata}
-                                links={links}
-                                search={search}
-                            />
-                        </section>
+                        {!isLoading && results.length > 0 && (
+                            <section
+                                className={styles.results_pagination_container}
+                            >
+                                <ResultsPagination
+                                    meta={metadata}
+                                    links={links}
+                                    search={search}
+                                />
+                            </section>
+                        )}
                     </section>
                     <div className={styles.result_details_container}>
                         <ResultDetailCard result={detail} />

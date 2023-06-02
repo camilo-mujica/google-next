@@ -8,9 +8,10 @@ export const resultsApi = createApi({
     endpoints: (builder) => ({
         getResults: builder.query<
             ApiResponse<PaginatedData<AnimalSearch>>,
-            { search: string; page?: number }
+            { search: string; page: number }
         >({
-            query: (search) => `/api/get-results?search=${search}`,
+            query: ({ search, page }) =>
+                `/api/get-results?search=${search}&page=${page}`,
             transformResponse: async (
                 response: ApiResponse<PaginatedData<AnimalSearch>>,
             ) => {

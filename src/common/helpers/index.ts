@@ -51,7 +51,7 @@ export const generatePaginatedData = (
     const data: AnimalSearch[] = generateAnimalDataArray(itemsPerPage)
 
     // Calculate pagination metadata
-    const totalItems = itemsPerPage * 10 // Total number of items
+    const totalItems = itemsPerPage * 100 // Total number of items
     const totalPages = Math.ceil(totalItems / itemsPerPage) // Total number of pages
 
     // Calculate links for pagination

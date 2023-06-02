@@ -32,6 +32,8 @@
                 color: $google-blue;
                 text-decoration: none;
                 bottom: -25px;
+                font-weight: 500;
+                z-index: 10;
 
                 &:hover {
                     text-decoration: underline;
@@ -52,7 +54,7 @@
         .google_letter {
             font-size: 36px;
             font-weight: 500;
-            cursor: pointer;
+            text-decoration: none;
 
             @media screen and (max-width: 1024px) {
                 font-size: 32px;
@@ -65,6 +67,7 @@
 
         .o {
             color: $google-yellow;
+            cursor: pointer;
         }
 
         .l {

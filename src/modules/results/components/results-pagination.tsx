@@ -10,18 +10,21 @@ interface Props {
     meta: Metadata
     links: Links
 }
+
 const ResultsPagination = ({ search, meta, links }: Props) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
-    const [totalResults, setTotalResults] = useState(0)
     const [previousPageLink, setPreviousPageLink] = useState('')
     const [nextPageLink, setNextPageLink] = useState('')
+
+    useEffect(() => {
+        console.log('meta', meta)
+    }, [meta])
 
     useEffect(() => {
         if (meta) {
             setCurrentPage(meta.currentPage)
             setTotalPages(meta.totalPages)
-            setTotalResults(meta.totalItems)
         }
     }, [meta, links])
 
@@ -57,45 +60,11 @@ const ResultsPagination = ({ search, meta, links }: Props) => {
                     <span className={`${styles.google_letter} ${styles.g}`}>
                         G
                     </span>
-                    {generateArray(totalPages >= 10 ? 10 : totalPages).map(
-                        (page, index) => {
-                            const isActive = !!(currentPage === index + 1)
-
-                            return (
-                                <span
-                                    key={index}
-                                    className={styles.pagination_option}
-                                >
-                                    <a
-                                        className={`${styles.google_letter} ${
-                                            isActive
-                                                ? styles.active_letter
-                                                : styles.o
-                                        }`}
-                                    >
-                                        o
-                                    </a>
-                                    <a
-                                        key={index}
-                                        className={`${styles.numeric_link} ${
-                                            isActive && styles.active_link
-                                        }`}
-                                    >
-                                        {index + 1}
-                                    </a>
-                                </span>
-                            )
-                        },
-                    )}
-                    {totalPages === 1 && (
-                        <span className={styles.pagination_option}>
-                            <span
-                                className={`${styles.google_letter} ${styles.o}`}
-                            >
-                                o
-                            </span>
-                        </span>
-                    )}
+                    <InnerPagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        search={search}
+                    ></InnerPagination>
                     <span className={`${styles.google_letter} ${styles.g}`}>
                         g
                     </span>
@@ -135,6 +104,71 @@ const ResultsPagination = ({ search, meta, links }: Props) => {
                 </a>
             </div>
         </div>
+    )
+}
+
+interface InnerPaginationProps {
+    totalPages: number
+    currentPage: number
+    search: string
+}
+
+function InnerPagination({
+    totalPages,
+    currentPage,
+    search,
+}: InnerPaginationProps) {
+    const MAX_DISPLAY_PAGES = 10 // Máximo número de páginas a mostrar
+
+    let startPage = 1
+    let endPage = totalPages
+
+    if (totalPages > MAX_DISPLAY_PAGES) {
+        const middlePages = MAX_DISPLAY_PAGES - 2 // Páginas intermedias excluyendo el primer y último número
+        const sidePages = Math.floor(middlePages / 2) // Páginas a cada lado de la página actual
+
+        if (currentPage <= sidePages + 1) {
+            // Estamos en las primeras páginas
+            endPage = MAX_DISPLAY_PAGES - 1
+        } else if (currentPage >= totalPages - sidePages) {
+            // Estamos en las últimas páginas
+            startPage = totalPages - MAX_DISPLAY_PAGES + 2
+        } else {
+            // Estamos en páginas intermedias
+            startPage = currentPage - sidePages
+            endPage = currentPage + sidePages
+        }
+    }
+
+    return (
+        <>
+            {generateArray(endPage - startPage + 1).map((page, index) => {
+                const pageNumber = startPage + index
+                const isActive = currentPage === pageNumber
+
+                return (
+                    <span key={index} className={styles.pagination_option}>
+                        <a
+                            className={`${styles.google_letter} ${
+                                isActive ? styles.active_letter : styles.o
+                            }`}
+                            href={`${ROUTES.results}?q=${search}&page=${pageNumber}`} // Agrega el href con la ruta adecuada
+                        >
+                            o
+                        </a>
+                        <a
+                            key={index}
+                            className={`${styles.numeric_link} ${
+                                isActive && styles.active_link
+                            }`}
+                            href={`${ROUTES.results}?q=${search}&page=${pageNumber}`} // Agrega el href con la ruta adecuada
+                        >
+                            {pageNumber}
+                        </a>
+                    </span>
+                )
+            })}
+        </>
     )
 }
 

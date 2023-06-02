@@ -7,6 +7,9 @@ const ITEMS_PER_PAGE = 20
 const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { search: searchQuery, page: pageQuery = '1' } = req.query
 
+    console.log('pageQuery: ', pageQuery)
+    console.log('SEARCH: ', searchQuery)
+
     const parsedPage = parseInt(pageQuery as string, 10)
 
     if (isNaN(parsedPage) || parsedPage <= 0) {
@@ -17,7 +20,6 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    console.log('SEARCH: ', searchQuery)
     if (!searchQuery) {
         return res.status(400).json({
             statusCode: 401,

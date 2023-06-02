@@ -7,6 +7,7 @@ const ResultsPage = ({
     q = '',
     page = 1,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+    console.log(q)
     return (
         <>
             <PageHead title={`${q || 'Buscar'} - Buscar con Google`}></PageHead>
@@ -28,6 +29,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
         pageQuery = pageQuery[0]
     }
 
+    console.log('searchQuery', searchQuery)
     return {
         props: {
             q: searchQuery || '',
