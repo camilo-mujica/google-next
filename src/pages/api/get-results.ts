@@ -2,6 +2,8 @@ import { emptyPaginatedData } from '@constants'
 import { generatePaginatedData } from '@helpers'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+// Description: This is the API route that will be called when the user searches for a query.
+
 const ITEMS_PER_PAGE = 20
 
 const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -19,7 +21,7 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!searchQuery) {
         return res.status(400).json({
-            statusCode: 401,
+            statusCode: 400,
             error: 'Invalid search query',
             data: emptyPaginatedData,
         })
