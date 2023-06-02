@@ -3,11 +3,11 @@ import { faker } from '@faker-js/faker'
 import { AnimalSearch, PaginatedData } from '@types'
 
 // Description: This function generates fake animal data
-export const generateAnimalData = (): AnimalSearch => {
+export const generateAnimalData = (id: number): AnimalSearch => {
     const type = faker.animal.type()
     return {
         type,
-        id: faker.datatype.number(),
+        id,
         url: faker.internet.url(),
         title:
             type in faker.animal
@@ -28,7 +28,7 @@ export const generateAnimalDataArray = (
 ): AnimalSearch[] => {
     const data = []
     for (let i = 0; i < itemsPerPage; i++) {
-        const animal = generateAnimalData()
+        const animal = generateAnimalData(i + 1)
         data.push(animal)
     }
 
@@ -81,4 +81,9 @@ export const generatePaginatedData = (
         },
         links,
     }
+}
+
+// Generates a number array given a specif length
+export const generateArray = (length: number): number[] => {
+    return Array.from({ length }, (_, index) => index + 1)
 }

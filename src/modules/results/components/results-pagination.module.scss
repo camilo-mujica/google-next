@@ -1,0 +1,106 @@
+@import '@styles/variables.scss';
+
+.parent_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .initial_container {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .arrow_button {
+            margin-top: 4px;
+            font-size: 16px;
+            color: $google-blue;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+        }
+
+        .pagination_option {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+
+            .numeric_link {
+                position: absolute;
+                font-size: 14px;
+                cursor: pointer;
+                color: $google-blue;
+                text-decoration: none;
+                bottom: -25px;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .active_link {
+                color: black;
+                font-weight: 700;
+                cursor: auto;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .google_letter {
+            font-size: 36px;
+            font-weight: 500;
+            cursor: pointer;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 32px;
+            }
+        }
+
+        .g {
+            color: $google-blue;
+        }
+
+        .o {
+            color: $google-yellow;
+        }
+
+        .l {
+            color: $google-green;
+        }
+
+        .e {
+            color: $google-red;
+        }
+
+        .active_letter {
+            color: $google-red;
+        }
+    }
+
+    .secondary_container {
+        position: absolute;
+        width: 110%;
+        top: 50px;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        justify-content: space-between;
+
+        @media screen and (max-width: 1024px) {
+            top: 40px;
+        }
+        .link {
+            font-size: 14px;
+            cursor: pointer;
+            color: $google-blue;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

@@ -47,13 +47,16 @@ const ResultsScreen = () => {
                             loading={false}
                             handleDetail={setDetail}
                         />
-                        <div className={styles.result_details_container}>
-                            <ResultDetailCard result={detail} />
-                        </div>
+
+                        <section
+                            className={styles.results_pagination_container}
+                        >
+                            <ResultsPagination></ResultsPagination>
+                        </section>
                     </section>
-                    <section className={styles.results_pagination_container}>
-                        <ResultsPagination></ResultsPagination>
-                    </section>
+                    <div className={styles.result_details_container}>
+                        <ResultDetailCard result={detail} />
+                    </div>
                 </section>
             </main>
             <ResultDetailModal result={detail}></ResultDetailModal>
