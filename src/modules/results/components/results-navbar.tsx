@@ -9,10 +9,11 @@ import styles from './results-navbar.module.scss'
 /* eslint-disable @next/next/no-img-element */
 
 interface Props {
+    initialSearch?: string
     handleSearchQuery: (value: string) => void
 }
-const ResultsNavbar = ({ handleSearchQuery }: Props) => {
-    const [search, setSearch] = useState('')
+const ResultsNavbar = ({ handleSearchQuery, initialSearch = '' }: Props) => {
+    const [search, setSearch] = useState(initialSearch)
     const [showNavbarShadow, setShowNavbarShadow] = useState(false)
 
     useEffect(() => {

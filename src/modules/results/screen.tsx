@@ -22,9 +22,13 @@ interface Props {
 const ResultsScreen = ({ initialSearch = '', page }: Props) => {
     const router = useRouter()
     const [search, setSearch] = useState(initialSearch)
+    const [pageQuery, setPageQuery] = useState(page)
     const [results, setResults] = useState<AnimalSearch[]>([])
     const [detail, setDetail] = useState<AnimalSearch | null>(null)
-    const { data, isLoading } = useGetResultsQuery({ search, page: page || 1 })
+    const { data, isLoading } = useGetResultsQuery({
+        search,
+        page: pageQuery || 1,
+    })
     const [showNoResults, setShowNoResults] = useState(false)
 
     const [metadata, setMetadata] = useState<Metadata>(emptyPaginatedData.meta)
@@ -46,9 +50,9 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
 
     useEffect(() => {
         if (search) {
-            if (page && page > 1) {
+            if (pageQuery && pageQuery > 1) {
                 router.push(
-                    `${ROUTES.results}?q=${search}&page=${page}`,
+                    `${ROUTES.results}?q=${search}&page=${pageQuery}`,
                     undefined,
                     {
                         shallow: true,
@@ -60,18 +64,25 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                 })
             }
         } else {
+            setDetail(null)
             setResults([])
             setShowNoResults(false)
             router.push(`${ROUTES.results}`, undefined, { shallow: true })
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search, page])
+    }, [search, pageQuery])
 
     return (
         <PrimaryLayout>
             <section className={styles.navbar_container}>
-                <ResultsNavbar handleSearchQuery={setSearch}></ResultsNavbar>
+                <ResultsNavbar
+                    initialSearch={initialSearch}
+                    handleSearchQuery={(value) => {
+                        setSearch(value)
+                        setPageQuery(1)
+                    }}
+                ></ResultsNavbar>
             </section>
             <main className={styles.main}>
                 <section className={styles.results_container}>
