@@ -66,6 +66,7 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
         } else {
             setDetail(null)
             setShowNoResults(false)
+            setResults([])
             router.push(`${ROUTES.results}`, undefined, { shallow: true })
         }
 
