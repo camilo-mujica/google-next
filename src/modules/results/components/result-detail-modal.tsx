@@ -20,11 +20,12 @@ const ResultDetailModal = ({ result }: Props) => {
     }, [result])
 
     useEffect(() => {
-        if (open) {
+        if (open && width && width < 1024) {
             document.body.style.overflow = 'hidden'
-        } else {
+        } else if (!open && width && width < 1024) {
             document.body.style.overflow = 'auto'
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open])
 
     useEffect(() => {

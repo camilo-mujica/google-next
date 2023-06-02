@@ -7,7 +7,6 @@ const ResultsPage = ({
     q = '',
     page = 1,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    console.log(q)
     return (
         <>
             <PageHead title={`${q || 'Buscar'} - Buscar con Google`}></PageHead>

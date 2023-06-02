@@ -18,10 +18,6 @@ const ResultsPagination = ({ search, meta, links }: Props) => {
     const [nextPageLink, setNextPageLink] = useState('')
 
     useEffect(() => {
-        console.log('meta', meta)
-    }, [meta])
-
-    useEffect(() => {
         if (meta) {
             setCurrentPage(meta.currentPage)
             setTotalPages(meta.totalPages)
