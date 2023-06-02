@@ -2,7 +2,7 @@ $navbar-menu-icon-color: #5f6368;
 
 .results_navbar {
     box-sizing: border-box;
-    padding: 6px;
+    padding: 6px 6px 10px 6px;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -45,6 +45,7 @@ $navbar-menu-icon-color: #5f6368;
         .google_logo {
             width: 92px;
             display: none;
+            margin-top: 6px;
             @media screen and (min-width: 640px) {
                 display: block;
             }
