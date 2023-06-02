@@ -34,6 +34,7 @@ const HomeScreen = () => {
                         search={search}
                         handleSearch={handleSearch}
                         handleSubmit={handleSubmit}
+                        handleReset={() => setSearch('')}
                     ></Searchbar>
                     <div className={styles.button_container}>
                         <button

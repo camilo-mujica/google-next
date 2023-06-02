@@ -1,17 +1,56 @@
+import { ROUTES } from '@constants'
 import { generateArray } from '@helpers'
-import React from 'react'
+import { Links, Metadata } from '@types'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md'
 import styles from './results-pagination.module.scss'
 
 interface Props {
-    currentPage?: number
-    totalPages?: number
+    search: string
+    meta: Metadata
+    links: Links
 }
-const ResultsPagination = ({ currentPage = 1, totalPages = 6 }: Props) => {
+const ResultsPagination = ({ search, meta, links }: Props) => {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(10)
+    const [totalResults, setTotalResults] = useState(0)
+    const [previousPageLink, setPreviousPageLink] = useState('')
+    const [nextPageLink, setNextPageLink] = useState('')
+
+    useEffect(() => {
+        if (meta) {
+            setCurrentPage(meta.currentPage)
+            setTotalPages(meta.totalPages)
+            setTotalResults(meta.totalItems)
+        }
+    }, [meta, links])
+
+    useEffect(() => {
+        const previousPage = currentPage > 1 ? currentPage - 1 : ''
+        const nextPage = currentPage + 1 <= totalPages ? currentPage + 1 : ''
+
+        setPreviousPageLink(
+            previousPage !== ''
+                ? `${ROUTES.results}?q=${search}&page=${previousPage}`
+                : '',
+        )
+
+        setNextPageLink(
+            nextPage !== ''
+                ? `${ROUTES.results}?q=${search}&page=${nextPage}`
+                : '',
+        )
+    }, [currentPage, search, totalPages])
+
     return (
         <div className={styles.parent_container}>
             <div className={styles.initial_container}>
-                <a className={styles.arrow_button}>
+                <a
+                    className={`${styles.arrow_button} ${
+                        !previousPageLink && styles.hidden_link
+                    }`}
+                    href={previousPageLink || undefined}
+                >
                     <MdOutlineArrowBackIos></MdOutlineArrowBackIos>
                 </a>
                 <div>
@@ -67,14 +106,33 @@ const ResultsPagination = ({ currentPage = 1, totalPages = 6 }: Props) => {
                         e
                     </span>
                 </div>
-                <a className={styles.arrow_button}>
+                <a
+                    className={`${styles.arrow_button} ${
+                        !nextPageLink && styles.hidden_link
+                    }`}
+                    href={nextPageLink}
+                >
                     <MdOutlineArrowForwardIos></MdOutlineArrowForwardIos>
                 </a>
             </div>
             <div className={styles.secondary_container}>
-                <a className={styles.link}>Anterior </a>
+                <a
+                    className={`${styles.link} ${
+                        !previousPageLink && styles.hidden_link
+                    }`}
+                    href={previousPageLink}
+                >
+                    Anterior
+                </a>
 
-                <a className={styles.link}>Siguiente</a>
+                <a
+                    className={`${styles.link}  ${
+                        !nextPageLink && styles.hidden_link
+                    }`}
+                    href={nextPageLink}
+                >
+                    Siguiente
+                </a>
             </div>
         </div>
     )

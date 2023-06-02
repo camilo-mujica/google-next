@@ -87,3 +87,7 @@ export const generatePaginatedData = (
 export const generateArray = (length: number): number[] => {
     return Array.from({ length }, (_, index) => index + 1)
 }
+
+// Delays the execution of a function
+export const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms))

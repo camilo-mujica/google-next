@@ -1,43 +1,40 @@
 import { PageHead } from '@components'
-import { ROUTES } from '@constants'
 import { ResultsScreen } from '@modules/results'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 
 const ResultsPage = ({
     q = '',
+    page = 1,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <>
-            <PageHead title={`${q} - Buscar con Google`}></PageHead>
-            <ResultsScreen></ResultsScreen>
+            <PageHead title={`${q || 'Buscar'} - Buscar con Google`}></PageHead>
+            <ResultsScreen initialSearch={q} page={page} />
         </>
     )
 }
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-    const { q } = query
+    const { q, page } = query
+    let searchQuery = q
+    let pageQuery = page
 
-    if (!q) {
-        return {
-            redirect: {
-                destination: ROUTES.home,
-                permanent: false,
-            },
-        }
+    if (Array.isArray(searchQuery)) {
+        searchQuery = searchQuery[0]
     }
 
-    if (Array.isArray(q)) {
-        return {
-            props: {
-                q: q[0],
-            },
-        }
+    if (Array.isArray(pageQuery)) {
+        pageQuery = pageQuery[0]
     }
 
     return {
         props: {
-            q,
+            q: searchQuery || '',
+            page:
+                pageQuery && !isNaN(parseInt(pageQuery))
+                    ? parseInt(pageQuery)
+                    : 1,
         },
     }
 }

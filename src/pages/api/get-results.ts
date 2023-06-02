@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const ITEMS_PER_PAGE = 20
 
-const searchHandler = (req: NextApiRequest, res: NextApiResponse) => {
+const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { search: searchQuery, page: pageQuery = '1' } = req.query
 
     const parsedPage = parseInt(pageQuery as string, 10)

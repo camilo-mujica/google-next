@@ -5,21 +5,24 @@ export type ApiResponse<T> = {
     data?: T
 }
 
+export type Metadata = {
+    itemCount: number
+    totalItems: number
+    itemsPerPage: number
+    totalPages: number
+    currentPage: number
+}
+
+export type Links = {
+    first: string
+    previous: string
+    next: string
+    last: string
+}
 export type PaginatedData<T> = {
     items: T[]
-    meta: {
-        itemCount: number
-        totalItems: number
-        itemsPerPage: number
-        totalPages: number
-        currentPage: number
-    }
-    links: {
-        first: string
-        previous: string
-        next: string
-        last: string
-    }
+    meta: Metadata
+    links: Links
 }
 
 export type AnimalSearch = {

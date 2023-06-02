@@ -23,7 +23,6 @@ const ResultDetailModal = ({ result }: Props) => {
         if (open) {
             document.body.style.overflow = 'hidden'
         } else {
-            console.log('else')
             document.body.style.overflow = 'auto'
         }
     }, [open])

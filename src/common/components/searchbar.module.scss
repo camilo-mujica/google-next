@@ -50,7 +50,6 @@ $google-gray-dark: #333333;
 .search_reset_icon {
     color: #70757a;
     font-size: 25px;
-    cursor: pointer;
     opacity: 0;
 }
 
@@ -62,6 +61,7 @@ $google-gray-dark: #333333;
 
 .active {
     opacity: 1;
+    cursor: pointer;
 }
 
 .fixed_shadow {

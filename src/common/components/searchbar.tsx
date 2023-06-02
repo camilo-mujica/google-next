@@ -6,6 +6,7 @@ interface Props {
     search: string
     handleSearch: (search: string) => void
     handleSubmit: () => void
+    handleReset: () => void
     fixedShadow?: boolean
 }
 
@@ -13,11 +14,9 @@ const Searchbar = ({
     search,
     handleSearch,
     handleSubmit,
+    handleReset,
     fixedShadow,
 }: Props) => {
-    const handleReset = () => {
-        handleSearch('')
-    }
     return (
         <div
             className={`${styles.searchbar} ${

@@ -2,17 +2,26 @@ import { NavbarUser, Searchbar } from '@components'
 import { ROUTES } from '@constants'
 import GoogleLogo from '@images/google-logo.svg'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './results-navbar.module.scss'
 
 /* eslint-disable @next/next/no-img-element */
 
 interface Props {
-    search: string
-    handleSearch: (value: string) => void
-    handleSubmit: () => void
+    handleSearchQuery: (value: string) => void
 }
-const ResultsNavbar = ({ search, handleSearch, handleSubmit }: Props) => {
+const ResultsNavbar = ({ handleSearchQuery }: Props) => {
+    const [search, setSearch] = useState('')
+
+    const handleSearch = () => {
+        handleSearchQuery(search)
+    }
+
+    const handleReset = () => {
+        setSearch('')
+        handleSearchQuery('')
+    }
+
     return (
         <nav className={styles.results_navbar}>
             <div>
@@ -22,8 +31,9 @@ const ResultsNavbar = ({ search, handleSearch, handleSubmit }: Props) => {
                     </Link>
                     <Searchbar
                         search={search}
-                        handleSearch={handleSearch}
-                        handleSubmit={handleSubmit}
+                        handleSearch={setSearch}
+                        handleSubmit={handleSearch}
+                        handleReset={handleReset}
                         fixedShadow
                     ></Searchbar>
                 </div>

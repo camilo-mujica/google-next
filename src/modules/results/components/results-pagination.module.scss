@@ -83,7 +83,7 @@
     .secondary_container {
         position: absolute;
         width: 110%;
-        top: 50px;
+        top: 45px;
         display: flex;
         gap: 4px;
         align-items: center;
@@ -103,4 +103,9 @@
             }
         }
     }
+}
+
+.hidden_link {
+    opacity: 0;
+    pointer-events: none;
 }

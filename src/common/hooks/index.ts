@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+export { default as usePagination } from './use-pagination'
 
 // This hook is used to detect if the user clicks outside of a component
 export const useOutsideClick = <T extends HTMLElement>(
