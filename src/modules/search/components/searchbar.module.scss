@@ -81,10 +81,13 @@ $google-gray-dark: #333333;
         width: 100%;
         border-radius: 0 0 30px 30px;
         box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
-        padding: 15px 0;
-        z-index: 0;
+        padding: 15px 0 10px 0;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
 
         > ul {
+            flex-grow: 1;
             padding: 0;
             margin: 0;
             list-style: none;

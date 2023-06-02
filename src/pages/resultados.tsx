@@ -28,7 +28,6 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
         pageQuery = pageQuery[0]
     }
 
-    console.log('searchQuery', searchQuery)
     return {
         props: {
             q: searchQuery || '',

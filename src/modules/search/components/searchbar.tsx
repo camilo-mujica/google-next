@@ -11,6 +11,7 @@ interface Props {
     handleSubmit: () => void
     handleReset: () => void
     fixedShadow?: boolean
+    allowShowHistory?: boolean
 }
 
 const Searchbar = ({
@@ -19,6 +20,7 @@ const Searchbar = ({
     handleSubmit,
     handleReset,
     fixedShadow,
+    allowShowHistory = false,
 }: Props) => {
     const { history, handleAddToHistory, handleClearHistory } =
         useSearchHistory()
@@ -53,7 +55,7 @@ const Searchbar = ({
                     onChange={(e) => handleSearch(e.target.value)}
                     className={styles.input}
                     onFocus={() => {
-                        if (history.length > 0) {
+                        if (history.length > 0 && allowShowHistory) {
                             setShowHistory(true)
                         }
                     }}

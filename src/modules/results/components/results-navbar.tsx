@@ -55,6 +55,7 @@ const ResultsNavbar = ({ handleSearchQuery, initialSearch = '' }: Props) => {
                         handleSubmit={handleSearch}
                         handleReset={handleReset}
                         fixedShadow
+                        allowShowHistory
                     ></Searchbar>
                 </div>
                 <div className={styles.navbar_secondary_container}>
