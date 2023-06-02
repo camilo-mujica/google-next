@@ -70,7 +70,9 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
 
     return (
         <PrimaryLayout>
-            <ResultsNavbar handleSearchQuery={setSearch}></ResultsNavbar>
+            <section className={styles.navbar_container}>
+                <ResultsNavbar handleSearchQuery={setSearch}></ResultsNavbar>
+            </section>
             <main className={styles.main}>
                 <section className={styles.results_container}>
                     <section className={styles.results_section}>

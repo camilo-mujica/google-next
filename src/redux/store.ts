@@ -1,8 +1,10 @@
 import { resultsApi } from '@modules/results'
+import { searchSlice } from '@modules/search'
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 
 export const store = configureStore({
     reducer: {
+        search: searchSlice,
         [resultsApi.reducerPath]: resultsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
