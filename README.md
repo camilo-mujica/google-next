@@ -68,6 +68,12 @@ Este proyecto utiliza las siguientes librerías:
 
 -   `Prettier`: Herramienta para formatear automáticamente el código fuente. [Documentación](https://prettier.io/)
 
+-   `Sass`: Preprocesador de CSS que extiende la sintaxis de CSS con características como variables, anidamiento, mixins, etc. [Documentación](https://sass-lang.com/)
+
+-   `Jest`: Framework de pruebas unitarias para JavaScript. [Documentación](https://jestjs.io/)
+
+-   `React Testing Library`: Librería para pruebas de componentes de React. [Documentación](https://testing-library.com/docs/react-testing-library/intro/)
+
 ## Módulos propios del proyecto (lógica de negocio)
 
 ### 🏠 _home_

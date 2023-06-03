@@ -1,5 +1,7 @@
+import { GOOGLE_ANALYTICS_MEASUREMENT_ID } from '@constants'
 import { setupStore } from '@redux/store'
 import '@styles/globals.scss'
+import { GoogleAnalytics } from 'nextjs-google-analytics'
 import NextNProgress from 'nextjs-progressbar'
 import { useEffect } from 'react'
 import { Provider } from 'react-redux'
@@ -27,6 +29,10 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <>
+                <GoogleAnalytics
+                    trackPageViews
+                    gaMeasurementId={GOOGLE_ANALYTICS_MEASUREMENT_ID}
+                />
                 <NextNProgress color="#4285f4" />
                 <Component {...pageProps} />
             </>

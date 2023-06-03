@@ -26,9 +26,7 @@
             "@modules/*": ["src/modules/*"],
             "@redux/*": ["src/redux/*"],
             "@images/*": ["public/assets/images/*"],
-            "@styles/*": ["src/common/styles/*"],
-            "@utils": ["src/common/utils"],
-            "@utils/*": ["src/common/utils/*"]
+            "@styles/*": ["src/common/styles/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/index.js"],

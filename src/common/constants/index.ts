@@ -32,3 +32,5 @@ export const emptyPaginatedData: PaginatedData<AnimalSearch> = {
         last: '',
     },
 }
+
+export const GOOGLE_ANALYTICS_MEASUREMENT_ID = 'G-07BG7RYZSR'
