@@ -53,8 +53,9 @@
 
         .google_letter {
             font-size: 36px;
-            font-weight: 500;
+            font-weight: 400;
             text-decoration: none;
+            font-family: 'Lexend Deca', sans-serif;
 
             @media screen and (max-width: 1024px) {
                 font-size: 32px;
