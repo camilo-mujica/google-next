@@ -19,7 +19,7 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    if (!searchQuery) {
+    if (!searchQuery || searchQuery.length > 30) {
         return res.status(400).json({
             statusCode: 400,
             error: 'Invalid search query',

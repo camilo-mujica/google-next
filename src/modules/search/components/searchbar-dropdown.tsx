@@ -1,8 +1,8 @@
 import { truncateString } from '@helpers'
 import React from 'react'
-import { IoMdTrash } from 'react-icons/io'
+import { IoMdSearch, IoMdTrash } from 'react-icons/io'
 import { LuClock4 } from 'react-icons/lu'
-import { useSearchHistory } from '../hooks'
+import { useSearchHistory, useSuggestions } from '../hooks'
 import styles from './searchbar-dropdown.module.scss'
 
 interface Props {
@@ -19,14 +19,40 @@ const SearchbarDropdown = ({
     setShowdropdown,
 }: Props) => {
     const { history, handleClearHistory } = useSearchHistory()
+    const { suggestions } = useSuggestions(search)
 
     return (
         <div className={styles.search_history}>
-            <ul>
-                {history
-                    .slice(0, 6)
-                    .filter((item) => item !== search)
-                    .map((item, index) => {
+            {!search && (
+                <ul>
+                    {history
+                        .slice(0, 6)
+                        .filter((item) => item !== search)
+                        .map((item, index) => {
+                            return (
+                                <li
+                                    key={index}
+                                    onClick={() => {
+                                        setSearch(item)
+                                        setShowdropdown(false)
+                                        setSearchHistoryItem(true)
+                                    }}
+                                >
+                                    <span className={styles.search_icon}>
+                                        <LuClock4 />
+                                    </span>
+                                    <span className={styles.search_text}>
+                                        {truncateString(item, 50)}
+                                    </span>
+                                </li>
+                            )
+                        })}
+                </ul>
+            )}
+
+            {search && (
+                <ul>
+                    {suggestions.map((item, index) => {
                         return (
                             <li
                                 key={index}
@@ -37,7 +63,7 @@ const SearchbarDropdown = ({
                                 }}
                             >
                                 <span className={styles.search_icon}>
-                                    <LuClock4 />
+                                    <IoMdSearch />
                                 </span>
                                 <span className={styles.search_text}>
                                     {truncateString(item, 50)}
@@ -45,7 +71,8 @@ const SearchbarDropdown = ({
                             </li>
                         )
                     })}
-            </ul>
+                </ul>
+            )}
 
             <div
                 className={styles.delete_history}

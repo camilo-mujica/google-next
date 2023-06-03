@@ -1,10 +1,7 @@
 import { Footer } from '@components'
-import { emptyPaginatedData, ROUTES } from '@constants'
 import NoResultsImage from '@images/no_results.svg'
 import { PrimaryLayout } from '@layouts'
-import { AnimalSearch, Links, Metadata } from '@types'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
     ResultsList,
     ResultsNavbar,
@@ -12,7 +9,7 @@ import {
     ResultDetailCard,
     ResultDetailModal,
     ResultsPagination,
-    useGetResultsQuery,
+    useSearchResults,
 } from './internals'
 /* eslint-disable @next/next/no-img-element */
 
@@ -21,63 +18,17 @@ interface Props {
     page?: number
 }
 const ResultsScreen = ({ initialSearch = '', page }: Props) => {
-    const router = useRouter()
     const [search, setSearch] = useState(initialSearch)
     const [pageQuery, setPageQuery] = useState(page)
-    const [results, setResults] = useState<AnimalSearch[]>([])
-    const [detail, setDetail] = useState<AnimalSearch | null>(null)
-    const { data, isLoading, isFetching } = useGetResultsQuery(
-        {
-            search,
-            page: pageQuery || 1,
-        },
-        { refetchOnMountOrArgChange: true },
-    )
-    const [showNoResults, setShowNoResults] = useState(false)
-
-    const [metadata, setMetadata] = useState<Metadata>(emptyPaginatedData.meta)
-    const [links, setLinks] = useState<Links>(emptyPaginatedData.links)
-
-    useEffect(() => {
-        if (data && data.data?.items) {
-            setResults(data.data.items)
-            setShowNoResults(data.data.items.length === 0)
-            setMetadata(data.data.meta)
-            setLinks(data.data.links)
-        } else {
-            setResults([])
-            setShowNoResults(false)
-            setMetadata(emptyPaginatedData.meta)
-            setLinks(emptyPaginatedData.links)
-        }
-    }, [data])
-
-    useEffect(() => {
-        if (search) {
-            if (pageQuery && pageQuery > 1) {
-                router.push(
-                    `${ROUTES.results}?q=${search}&page=${pageQuery}`,
-                    undefined,
-                    {
-                        shallow: true,
-                    },
-                )
-            } else {
-                router.push(`${ROUTES.results}?q=${search}`, undefined, {
-                    shallow: true,
-                })
-            }
-        } else {
-            setDetail(null)
-            setShowNoResults(false)
-            setResults([])
-            router.push(`${ROUTES.results}`, undefined, { shallow: true })
-        }
-
-        setDetail(null)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search, pageQuery])
+    const {
+        results,
+        isLoading,
+        isFetching,
+        detail,
+        setDetail,
+        metadata,
+        showNoResults,
+    } = useSearchResults({ search, page: pageQuery || 1 })
 
     return (
         <PrimaryLayout>
@@ -143,7 +94,6 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                             >
                                 <ResultsPagination
                                     meta={metadata}
-                                    links={links}
                                     search={search}
                                 />
                             </section>

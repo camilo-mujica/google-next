@@ -1,6 +1,6 @@
 import { ROUTES } from '@constants'
 import { generateArray } from '@helpers'
-import { Links, Metadata } from '@types'
+import { Metadata } from '@types'
 import React, { useEffect, useState } from 'react'
 import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md'
 import styles from './results-pagination.module.scss'
@@ -8,10 +8,9 @@ import styles from './results-pagination.module.scss'
 interface Props {
     search: string
     meta: Metadata
-    links: Links
 }
 
-const ResultsPagination = ({ search, meta, links }: Props) => {
+const ResultsPagination = ({ search, meta }: Props) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(10)
     const [previousPageLink, setPreviousPageLink] = useState('')
@@ -22,7 +21,7 @@ const ResultsPagination = ({ search, meta, links }: Props) => {
             setCurrentPage(meta.currentPage)
             setTotalPages(meta.totalPages)
         }
-    }, [meta, links])
+    }, [meta])
 
     useEffect(() => {
         const previousPage = currentPage > 1 ? currentPage - 1 : ''

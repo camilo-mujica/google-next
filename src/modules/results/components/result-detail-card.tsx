@@ -16,10 +16,6 @@ const ResultDetailCard = ({ result }: Props) => {
         }
     }, [result])
 
-    useEffect(() => {
-        console.log('isLoading', isLoading)
-    }, [isLoading])
-
     return (
         <article
             className={`${styles.result_detail_card} ${
