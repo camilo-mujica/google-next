@@ -1,19 +1,28 @@
 import { resultsApi } from '@modules/results'
 import { searchSlice } from '@modules/search'
-import {
-    Action,
-    combineReducers,
-    configureStore,
-    PreloadedState,
-    ThunkAction,
-} from '@reduxjs/toolkit'
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 
-const rootReducer = combineReducers({
-    search: searchSlice,
-    [resultsApi.reducerPath]: resultsApi.reducer,
+export const store = configureStore({
+    reducer: {
+        search: searchSlice,
+        [resultsApi.reducerPath]: resultsApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(resultsApi.middleware),
+    devTools: true,
 })
 
-export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
+export type AppStore = typeof store
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    unknown,
+    Action<string>
+>
+
+export const setupStore = (preloadedState?: RootState) =>
     configureStore({
         reducer: {
             search: searchSlice,
@@ -24,14 +33,3 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) =>
         devTools: true,
         preloadedState,
     })
-
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
-
-export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    RootState,
-    unknown,
-    Action<string>
->

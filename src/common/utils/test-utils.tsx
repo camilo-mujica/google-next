@@ -16,11 +16,12 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 }
 
 export const MyStore = setupStore()
+const state = MyStore.getState()
 
 export function renderWithProviders(
     ui: React.ReactElement,
     {
-        preloadedState = {},
+        preloadedState = state,
         // Automatically create a store instance if no store was passed in
         store = setupStore(preloadedState),
         ...renderOptions
