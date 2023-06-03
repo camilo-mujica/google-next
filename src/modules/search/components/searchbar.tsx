@@ -59,6 +59,7 @@ const Searchbar = ({
                     <IoMdSearch className={styles.search_icon} />
                 </span>
                 <input
+                    data-testid="search-input"
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -75,6 +76,7 @@ const Searchbar = ({
                     }}
                 />
                 <span
+                    data-testid="reset-button"
                     className={styles.button}
                     onClick={() => {
                         handleReset()

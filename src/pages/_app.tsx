@@ -1,4 +1,4 @@
-import { store } from '@redux/store'
+import { setupStore } from '@redux/store'
 import '@styles/globals.scss'
 import NextNProgress from 'nextjs-progressbar'
 import { useEffect } from 'react'
@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
+    const store = setupStore()
+
     useEffect(() => {
         console.log(
             '%c Desarrollado por',

@@ -123,3 +123,7 @@ Contiene recursos públicos como imágenes, fuentes y archivos JSON.
 -   `.prettierrc.js`: Este archivo es la configuración de Prettier, que es una herramienta de formateo de código que ayuda a mantener el código limpio y legible. En este archivo se pueden configurar opciones de formateo para la aplicación.
 
 -   `.eslintrc.json`: Este archivo es la configuración de ESLint, que es una herramienta de análisis estático de código para identificar y reportar patrones problemáticos encontrados en el código. En este archivo se pueden configurar reglas y ajustes de configuración de ESLint.
+
+## Testing
+
+Para correr las pruebas unitarias ejecutar el script `npm run test` o `npm run test:watch` para correrlas en modo watch.
