@@ -10,7 +10,8 @@
         "format": "prettier --check ./src",
         "format:fix": "prettier --write ./src",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "precommit": "npm run test"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
