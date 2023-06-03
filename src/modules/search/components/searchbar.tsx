@@ -1,9 +1,8 @@
-import { truncateString } from '@helpers'
 import { useOutsideClick } from '@hooks'
 import React, { useEffect, useState } from 'react'
-import { IoMdClose, IoMdSearch, IoMdTrash } from 'react-icons/io'
-import { LuClock4 } from 'react-icons/lu'
+import { IoMdClose, IoMdSearch } from 'react-icons/io'
 import { useSearchHistory } from '../internals'
+import SearchbarDropdown from './searchbar-dropdown'
 import styles from './searchbar.module.scss'
 
 interface Props {
@@ -23,10 +22,9 @@ const Searchbar = ({
     fixedShadow,
     allowShowHistory = false,
 }: Props) => {
-    const { history, handleAddToHistory, handleClearHistory } =
-        useSearchHistory()
-    const [showHistory, setShowHistory] = useState(false)
-    const ref = useOutsideClick<HTMLDivElement>(() => setShowHistory(false))
+    const { history, handleAddToHistory } = useSearchHistory()
+    const [showDropdown, setShowdropdown] = useState(false)
+    const ref = useOutsideClick<HTMLDivElement>(() => setShowdropdown(false))
     const [searchHistoryItem, setSearchHistoryItem] = useState<boolean>(false)
 
     useEffect(() => {
@@ -41,7 +39,7 @@ const Searchbar = ({
     return (
         <section
             className={`${styles.searchbar} ${
-                showHistory && styles.show_search_history
+                showDropdown && styles.show_search_history
             } `}
             ref={ref}
         >
@@ -53,7 +51,7 @@ const Searchbar = ({
                     if (e.key === 'Enter') {
                         handleSubmit()
                         handleAddToHistory(search)
-                        setShowHistory(false)
+                        setShowdropdown(false)
                     }
                 }}
             >
@@ -65,9 +63,14 @@ const Searchbar = ({
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className={styles.input}
-                    onFocus={() => {
+                    // onFocus={() => {
+                    //     if (history.length > 0 && allowShowHistory) {
+                    //         setShowHistory(true)
+                    //     }
+                    // }}
+                    onClick={() => {
                         if (history.length > 0 && allowShowHistory) {
-                            setShowHistory(true)
+                            setShowdropdown(true)
                         }
                     }}
                 />
@@ -75,7 +78,7 @@ const Searchbar = ({
                     className={styles.button}
                     onClick={() => {
                         handleReset()
-                        setShowHistory(false)
+                        setShowdropdown(false)
                     }}
                 >
                     <IoMdClose
@@ -85,44 +88,14 @@ const Searchbar = ({
                     />
                 </span>
             </div>
-            {showHistory && (
-                <div className={styles.search_history}>
-                    <ul>
-                        {history
-                            .slice(0, 6)
-                            .filter((item) => item !== search)
-                            .map((item, index) => {
-                                return (
-                                    <li
-                                        key={index}
-                                        onClick={() => {
-                                            setSearch(item)
-                                            setShowHistory(false)
-                                            setSearchHistoryItem(true)
-                                        }}
-                                    >
-                                        <span className={styles.search_icon}>
-                                            <LuClock4 />
-                                        </span>
-                                        <span className={styles.search_text}>
-                                            {truncateString(item, 50)}
-                                        </span>
-                                    </li>
-                                )
-                            })}
-                    </ul>
 
-                    <div
-                        className={styles.delete_history}
-                        onClick={() => {
-                            handleClearHistory()
-                            setShowHistory(false)
-                        }}
-                    >
-                        <IoMdTrash className={styles.delete_icon} />
-                        <span>Borrar historial</span>
-                    </div>
-                </div>
+            {showDropdown && (
+                <SearchbarDropdown
+                    search={search}
+                    setSearch={setSearch}
+                    setSearchHistoryItem={setSearchHistoryItem}
+                    setShowdropdown={setShowdropdown}
+                />
             )}
         </section>
     )

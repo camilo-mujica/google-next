@@ -150,7 +150,9 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                         )}
                     </section>
                     <div className={styles.result_details_container}>
-                        <ResultDetailCard result={detail} />
+                        <div className={styles.result_details_card_container}>
+                            <ResultDetailCard result={detail} />
+                        </div>
                     </div>
                 </section>
             </main>
