@@ -1,4 +1,5 @@
 import { emptyPaginatedData, ROUTES } from '@constants'
+import useWindowDimensions from '@hooks'
 import { AnimalSearch, Metadata } from '@types'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -16,6 +17,7 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
     const [detail, setDetail] = useState<AnimalSearch | null>(null)
     const [metadata, setMetadata] = useState<Metadata>(emptyPaginatedData.meta)
     const [showNoResults, setShowNoResults] = useState(false)
+    const { width } = useWindowDimensions()
 
     const { data, isLoading, isFetching, isError } = useGetResultsQuery(
         {
@@ -27,14 +29,17 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
 
     useEffect(() => {
         if (
-            !isLoading &&
-            !isFetching &&
             !isError &&
             data &&
             data.data?.items &&
             data.data.items.length > 0
         ) {
-            setResults(data.data.items)
+            if (width && width <= 768) {
+                setResults([...results, ...data.data.items])
+            } else {
+                setResults(data.data.items)
+            }
+
             setShowNoResults(data.data.items.length === 0)
             setMetadata(data.data.meta)
         } else {

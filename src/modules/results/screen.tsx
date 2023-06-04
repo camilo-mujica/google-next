@@ -1,4 +1,5 @@
 import { Footer } from '@components'
+import useWindowDimensions from '@hooks'
 import NoResultsImage from '@images/no_results.svg'
 import { PrimaryLayout } from '@layouts'
 import React, { useState } from 'react'
@@ -10,6 +11,7 @@ import {
     ResultDetailModal,
     ResultsPagination,
     useSearchResults,
+    LoadMoreResults,
 } from './internals'
 /* eslint-disable @next/next/no-img-element */
 
@@ -29,6 +31,7 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
         metadata,
         showNoResults,
     } = useSearchResults({ search, page: pageQuery || 1 })
+    const { width } = useWindowDimensions()
 
     return (
         <PrimaryLayout>
@@ -88,14 +91,43 @@ const ResultsScreen = ({ initialSearch = '', page }: Props) => {
                             )}
                         </section>
 
-                        {!isLoading && results.length > 0 && (
+                        {!isLoading &&
+                            results.length > 0 &&
+                            width &&
+                            width > 768 && (
+                                <section
+                                    className={
+                                        styles.results_pagination_container
+                                    }
+                                >
+                                    <ResultsPagination
+                                        meta={metadata}
+                                        search={search}
+                                    />
+                                </section>
+                            )}
+
+                        {width && width <= 768 && (
                             <section
-                                className={styles.results_pagination_container}
+                                className={styles.load_more_results_container}
                             >
-                                <ResultsPagination
-                                    meta={metadata}
-                                    search={search}
-                                />
+                                <LoadMoreResults
+                                    loading={isLoading || isFetching}
+                                    hasMoreResults={
+                                        !!(
+                                            metadata.currentPage <
+                                            metadata.totalPages
+                                        )
+                                    }
+                                    handleNextPage={() => {
+                                        const nextPage = pageQuery
+                                            ? pageQuery + 1
+                                            : 2
+                                        if (nextPage <= metadata?.totalPages) {
+                                            setPageQuery(nextPage)
+                                        }
+                                    }}
+                                ></LoadMoreResults>
                             </section>
                         )}
                     </section>

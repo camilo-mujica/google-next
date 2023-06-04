@@ -74,6 +74,8 @@ Este proyecto utiliza las siguientes librerías:
 
 -   `React Testing Library`: Librería para pruebas de componentes de React. [Documentación](https://testing-library.com/docs/react-testing-library/intro/)
 
+-   `Nextjs Google Analytics` : Librería para integrar Google Analytics en Next.js. [Documentación](https://github.com/MauricioRobayo/nextjs-google-analytics)
+
 ## Módulos propios del proyecto (lógica de negocio)
 
 ### 🏠 _home_
