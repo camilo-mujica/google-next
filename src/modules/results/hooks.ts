@@ -19,6 +19,8 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
     const [showNoResults, setShowNoResults] = useState(false)
     const { width } = useWindowDimensions()
 
+    const [previousSearch, setPreviousSearch] = useState('')
+
     const { data, isLoading, isFetching, isError } = useGetResultsQuery(
         {
             search,
@@ -34,10 +36,12 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
             data.data?.items &&
             data.data.items.length > 0
         ) {
-            if (width && width <= 768) {
+            if (width && width <= 768 && search === previousSearch) {
                 setResults([...results, ...data.data.items])
             } else {
                 setResults(data.data.items)
+                window.scrollTo({ top: 0 })
+                console.log('test')
             }
 
             setShowNoResults(data.data.items.length === 0)
@@ -51,6 +55,10 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, isLoading, isFetching])
+
+    useEffect(() => {
+        setPreviousSearch(search)
+    }, [search])
 
     useEffect(() => {
         if (search) {

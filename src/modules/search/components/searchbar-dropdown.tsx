@@ -85,7 +85,7 @@ const SearchbarDropdown = ({
                     }}
                 >
                     <IoMdTrash className={styles.delete_icon} />
-                    <span>Borrar historial</span>
+                    <span className={styles.delete_text}>Borrar historial</span>
                 </div>
             )}
         </div>

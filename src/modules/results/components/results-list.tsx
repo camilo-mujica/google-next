@@ -14,7 +14,7 @@ const ResultsList = ({ results, loading, handleDetail }: Props) => {
         <div className={styles.results_list}>
             {loading ? (
                 <>
-                    {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                    {Array.from({ length: 20 }, (_, index) => index + 1).map(
                         (result, index) => {
                             return (
                                 <ResultCardSkeleton
