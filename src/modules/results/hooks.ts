@@ -41,7 +41,6 @@ export const useSearchResults = ({ search, page }: useGetResultsProps) => {
             } else {
                 setResults(data.data.items)
                 window.scrollTo({ top: 0 })
-                console.log('test')
             }
 
             setShowNoResults(data.data.items.length === 0)

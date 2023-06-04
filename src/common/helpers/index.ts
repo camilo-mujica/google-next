@@ -44,7 +44,6 @@ export const generatePaginatedData = (
 ): PaginatedData<AnimalSearch> => {
     if (search === '' || /\d/.test(search)) {
         // Return empty results if search is empty or contains a number
-        console.log('entro')
         return emptyPaginatedData
     }
 

@@ -11,6 +11,7 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const parsedPage = parseInt(pageQuery as string, 10)
 
+    // Check if page number is invalid
     if (isNaN(parsedPage) || parsedPage <= 0) {
         return res.status(400).json({
             statusCode: 400,
@@ -19,7 +20,8 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         })
     }
 
-    if (!searchQuery || searchQuery.length > 30) {
+    // Check if search query is empty or its length is greater than 20
+    if (!searchQuery || searchQuery.length > 20) {
         return res.status(400).json({
             statusCode: 400,
             error: 'Invalid search query',
@@ -29,6 +31,15 @@ const searchHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const page = parsedPage > 0 ? parsedPage : 1
     const search = searchQuery as string
+
+    // Check if search query contains a number
+    if (/\d/.test(search)) {
+        return res.status(400).json({
+            statusCode: 400,
+            error: 'Invalid search query',
+            data: emptyPaginatedData,
+        })
+    }
 
     const paginatedData = generatePaginatedData(page, search, ITEMS_PER_PAGE)
 
