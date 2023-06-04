@@ -64,13 +64,8 @@ const Searchbar = ({
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className={styles.input}
-                    // onFocus={() => {
-                    //     if (history.length > 0 && allowShowHistory) {
-                    //         setShowHistory(true)
-                    //     }
-                    // }}
                     onClick={() => {
-                        if (history.length > 0 && allowShowHistory) {
+                        if (allowShowHistory) {
                             setShowdropdown(true)
                         }
                     }}
@@ -97,6 +92,7 @@ const Searchbar = ({
                     setSearch={setSearch}
                     setSearchHistoryItem={setSearchHistoryItem}
                     setShowdropdown={setShowdropdown}
+                    hasHistory={history.length > 0}
                 />
             )}
         </section>

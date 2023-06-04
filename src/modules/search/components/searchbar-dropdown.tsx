@@ -10,6 +10,7 @@ interface Props {
     setSearch: (search: string) => void
     setSearchHistoryItem: (searchHistoryItem: boolean) => void
     setShowdropdown: (showHistory: boolean) => void
+    hasHistory?: boolean
 }
 
 const SearchbarDropdown = ({
@@ -17,6 +18,7 @@ const SearchbarDropdown = ({
     setSearch,
     setSearchHistoryItem,
     setShowdropdown,
+    hasHistory = false,
 }: Props) => {
     const { history, handleClearHistory } = useSearchHistory()
     const { suggestions } = useSuggestions(search)
@@ -74,16 +76,18 @@ const SearchbarDropdown = ({
                 </ul>
             )}
 
-            <div
-                className={styles.delete_history}
-                onClick={() => {
-                    handleClearHistory()
-                    setShowdropdown(false)
-                }}
-            >
-                <IoMdTrash className={styles.delete_icon} />
-                <span>Borrar historial</span>
-            </div>
+            {hasHistory && (
+                <div
+                    className={styles.delete_history}
+                    onClick={() => {
+                        handleClearHistory()
+                        setShowdropdown(false)
+                    }}
+                >
+                    <IoMdTrash className={styles.delete_icon} />
+                    <span>Borrar historial</span>
+                </div>
+            )}
         </div>
     )
 }
