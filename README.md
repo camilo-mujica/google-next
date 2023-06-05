@@ -1,6 +1,17 @@
 # Descripción del proyecto
 
-Este proyecto es una prueba técnica.
+Este proyecto es una `prueba técnica`. Consiste en una replica de la página de inicio del buscador de Google (bajo ciertos parámetros y condiciones), así como también una réplica de la página de busqueda. Está elaborado utilizando Next.js + Redux Toolkit (+RTK Query) + Sass.
+
+# Features
+
+-   Fully responsive 📱
+-   Historial de resultados en la barra de búsqueda (Redux + Localstorage) 📚
+-   Sugerencias de búsqueda al escribir en la barra de búsqueda 🔍
+-   Paginación de resultados en Desktop 🖥️
+-   Scroll infinito en mobile 📲
+-   Api endpoint con paginación para obtener los resultados (Faker.js) 🌐
+-   Skeleton loader para las imágenes (detalle de resultados) ⚡️
+-   Custom modal (Sass) 🖼️
 
 ## Tipo de arquitectura
 
